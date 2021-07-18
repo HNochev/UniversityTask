@@ -1,0 +1,23 @@
+Students List:
+Name: Ivan Stanimirov --- Faculty Number: 10043 --- Grades: 6, 5, 3, 6
+Name: Iordan Georgiev --- Faculty Number: 10026 --- Grades: 6, 5, 3, 5
+Name: Jordan Cvetanov --- Faculty Number: 10005 --- Grades: 5, 6, 3
+Name: Atanas Panteleev --- Faculty Number: 10006 --- Grades: 4, 5, 2
+Name: Martin Krasimirov --- Faculty Number: 10008 --- Grades: 6, 6, 6
+Name: Hristo Kaloyanov --- Faculty Number: 10007 --- Grades: 3, 6, 6
+Name: Ivan Georgiev --- Faculty Number: 10001 --- Grades: 4, 5, 6
+Name: Mariya Vasileva --- Faculty Number: 10011 --- Grades: 3, 5, 3
+Name: Miroslav Ivanov --- Faculty Number: 10003 --- Grades: 6, 5, 4
+Name: Martina Hadjieva --- Faculty Number: 10010 --- Grades: 4, 5, 5
+Name: Radoslava Stanimirova --- Faculty Number: 10019 --- Grades: 6, 3, 4
+Name: Nikola Mirchev --- Faculty Number: 10012 --- Grades: 4, 5, 4
+Name: Stefani Dimitrova --- Faculty Number: 10013 --- Grades: 4, 5, 2
+Name: Lilyana Goranova --- Faculty Number: 10020 --- Grades: 4, 4, 4
+Name: Ivana Marinova --- Faculty Number: 10004 --- Grades: 5, 3, 6
+Name: Georgi Trifonov --- Faculty Number: 10002 --- Grades: 2, 3, 6
+Name: Kristina Milusheva --- Faculty Number: 100014 --- Grades: 5, 5, 4
+Name: Stanislav Filipov --- Faculty Number: 10016 --- Grades: 4, 5, 5
+Name: Elica Dimova --- Faculty Number: 100017 --- Grades: 3, 5, 6
+Name: Hristiyan Borisov --- Faculty Number: 10009 --- Grades: 5, 6, 6
+Name: Anna Tosheva --- Faculty Number: 10018 --- Grades: 4, 6, 2
+Name: Todor Todorov --- Faculty Number: 10015 --- Grades: 4, 5, 6
