@@ -1,8 +1,8 @@
-﻿using Microsoft.VisualBasic;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using MySql.Data.MySqlClient;
 
 namespace UniversityTask
 {
@@ -35,7 +35,7 @@ namespace UniversityTask
                             Console.WriteLine($"Write all grades of the student be sure their count is equal to ({countOfGrades}).");
                             Console.WriteLine($"If grades are more than {countOfGrades}, the last unnecessary grades will not be saved for the student.");
                             Console.WriteLine($"(Example of input: 5, 4, 5, 3        if count is 3 only 5, 4 and 5 will be saved.)");
-                            List<double> grades = Console.ReadLine().Split(", ", StringSplitOptions.RemoveEmptyEntries).Select(double.Parse).ToList();
+                            List<double> grades = Console.ReadLine().Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries).Select(double.Parse).ToList();
 
                             Student student = new Student(name, facNumber);
 
@@ -45,6 +45,7 @@ namespace UniversityTask
                             }
 
                             students.Add(student);
+                            InsertNewRowInDatabase(facNumber,name, String.Join(", ", grades));
 
                             Console.WriteLine("Successfully added new student!");
 
@@ -76,7 +77,7 @@ namespace UniversityTask
 
                             Console.WriteLine("Write all the grades you want to add:");
                             Console.WriteLine($"(Example of input: 5, 4, 5, 3)");
-                            List<double> grades = Console.ReadLine().Split(", ", StringSplitOptions.RemoveEmptyEntries).Select(double.Parse).ToList();
+                            List<double> grades = Console.ReadLine().Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries).Select(double.Parse).ToList();
 
                             for (int i = 0; i < grades.Count; i++)
                             {
@@ -104,7 +105,7 @@ namespace UniversityTask
                         }
                     case "4":
                         {
-                            TextWriter tw = new StreamWriter("../../../AllStudentsList.txt");
+                            TextWriter tw = new StreamWriter("../../AllStudentsList.txt");
 
                             tw.WriteLine("Students List:");
 
@@ -121,12 +122,12 @@ namespace UniversityTask
                         }
                     case "5":
                         {
-                            using (StreamReader sr = File.OpenText("../../../FileWithStudentsToReadFrom.txt"))
+                            using (StreamReader sr = File.OpenText("../../FileWithStudentsToReadFrom.txt"))
                             {
                                 string s = "";
                                 while ((s = sr.ReadLine()) != null)
                                 {
-                                    string[] input = s.Split(" --- ");
+                                    string[] input = s.Split(new string[] { " --- " }, StringSplitOptions.None);
 
                                     string name = input[0].Replace("Name: ", "");
                                     string facNum = input[1].Replace("Faculty Number: ", "");
@@ -134,7 +135,7 @@ namespace UniversityTask
 
                                     Student student = new Student(name, facNum);
 
-                                    double[] gradesArray = grades.Split(", ", StringSplitOptions.RemoveEmptyEntries).Select(double.Parse).ToArray();
+                                    double[] gradesArray = grades.Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries).Select(double.Parse).ToArray();
 
                                     for (int i = 0; i < gradesArray.Length; i++)
                                     {
@@ -142,6 +143,7 @@ namespace UniversityTask
                                     }
 
                                     students.Add(student);
+                                    InsertNewRowInDatabase(facNum, name, grades);
                                 }
                             }
                             Console.WriteLine("Successfully readed from txt file!");
@@ -211,11 +213,19 @@ namespace UniversityTask
                         }
                     case "9":
                         {
-                            Console.Clear();
+                            PrintFormDatabase();
+                            Console.WriteLine("Successfully read!");
+                            Console.WriteLine("");
                             PrintMenu();
                             break;
                         }
                     case "10":
+                        {
+                            Console.Clear();
+                            PrintMenu();
+                            break;
+                        }
+                    case "11":
                         {
                             return;
                         }
@@ -239,9 +249,10 @@ namespace UniversityTask
                 "5. Read students from a file." + Environment.NewLine +
                 "6. Sort students by their faculty number with Selection Sort." + Environment.NewLine +
                 "7. Sort students by their average grade with Insertion Sort." + Environment.NewLine +
-                "8. View all data for one student with its faculty number" + Environment.NewLine +
-                "9. Clear the Console." + Environment.NewLine +
-                "10. Exit." + Environment.NewLine;
+                "8. View all data for one student with its faculty number." + Environment.NewLine +
+                "9. Print all data from the database." + Environment.NewLine +
+                "10. Clear the Console." + Environment.NewLine +
+                "11. Exit." + Environment.NewLine;
 
             Console.WriteLine(menu);
         }
@@ -303,6 +314,55 @@ namespace UniversityTask
                 }
             }
             return "Nil";
+        }
+
+        private static void PrintFormDatabase()
+        {
+            string connStr = "server=localhost;user=root;database=universitytastdatabase;port=3306;password=121212";
+
+            MySqlConnection conn = new MySqlConnection(connStr);
+            try
+            {
+                Console.WriteLine("Connecting to MySQL...");
+                conn.Open();
+
+                string sql = "select * from universitytastdatabase.students;";
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    Console.WriteLine(rdr[0] + " -- " + rdr[1] + " -- " + rdr[2]);
+                }
+                rdr.Close();
+            }
+            catch (Exception err)
+            {
+                Console.WriteLine(err.Message);
+            }
+        }
+
+        static void InsertNewRowInDatabase(string facultyNumber, string name, string grades)
+        {
+            string connStr = "server=localhost;user=root;database=universitytastdatabase;port=3306;password=121212";
+
+            MySqlConnection conn = new MySqlConnection(connStr);
+            try
+            {
+                Console.WriteLine("Saving to MySQL...");
+                conn.Open();
+
+                string sql = $"INSERT INTO universitytastdatabase.students VALUES ('{int.Parse(facultyNumber)}', '{name}', '{grades}')";
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                cmd.ExecuteNonQuery();
+
+    
+
+            }
+            catch (Exception err)
+            {
+                Console.WriteLine(err.Message);
+            }
         }
     }
 }
