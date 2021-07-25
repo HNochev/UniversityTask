@@ -13,6 +13,8 @@ Console application with menu, adding, sorting, saving in file and reading from 
 да се използва двоично търсене за намиране на студента. Съхранявайте информацията как е сортиран списъка, а не проверявайте динамично дали е сортиран. 
 Досието на студента съдържа името му, факултетен номер, среден успех и списък от оценките му.
 
+
+
 To start the console application:
 1. Open the .sln file with Visual Studio.
 2. Click Ctrl + F5 to start it.
