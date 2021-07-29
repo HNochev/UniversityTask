@@ -1,4 +1,5 @@
 Students List:
+Name: Ivan Georgiev --- Faculty Number: 10050 --- Grades: 4, 5, 5, 6
 Name: Jordan Cvetanov --- Faculty Number: 10005 --- Grades: 5, 6, 3
 Name: Atanas Panteleev --- Faculty Number: 10006 --- Grades: 4, 5, 2
 Name: Martin Krasimirov --- Faculty Number: 10008 --- Grades: 6, 6, 6

@@ -39,13 +39,22 @@ namespace UniversityTask
 
                             Student student = new Student(name, facNumber);
 
+                            while (grades.Any(x => x < 2 || x > 6))
+                            {
+                                Console.WriteLine("Gredes must be in range of 2 to 6, please write the grades again!");
+                                Console.WriteLine();
+                                Console.WriteLine($"Write all grades of the student be sure their count is equal to ({countOfGrades}).");
+                                Console.WriteLine($"If grades are more than {countOfGrades}, the last unnecessary grades will not be saved for the student.");
+                                Console.WriteLine($"(Example of input: 5, 4, 5, 3        if count is 3 only 5, 4 and 5 will be saved.)");
+                                grades = Console.ReadLine().Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries).Select(double.Parse).ToList();
+                            }
                             for (int i = 0; i < countOfGrades; i++)
                             {
                                 student.AddNewGrade(grades[i]);
                             }
 
                             students.Add(student);
-                            InsertNewRowInDatabase(facNumber,name, String.Join(", ", grades));
+                            InsertNewRowInDatabase(facNumber, name, String.Join(", ", grades));
 
                             Console.WriteLine("Successfully added new student!");
 
@@ -78,6 +87,15 @@ namespace UniversityTask
                             Console.WriteLine("Write all the grades you want to add:");
                             Console.WriteLine($"(Example of input: 5, 4, 5, 3)");
                             List<double> grades = Console.ReadLine().Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries).Select(double.Parse).ToList();
+
+                            while (grades.Any(x => x < 2 || x > 6))
+                            {
+                                Console.WriteLine("Gredes must be in range of 2 to 6, please write the grades again!");
+                                Console.WriteLine();
+                                Console.WriteLine("Write all the grades you want to add:");
+                                Console.WriteLine($"(Example of input: 5, 4, 5, 3)");
+                                grades = Console.ReadLine().Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries).Select(double.Parse).ToList();
+                            }
 
                             for (int i = 0; i < grades.Count; i++)
                             {
@@ -356,7 +374,7 @@ namespace UniversityTask
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.ExecuteNonQuery();
 
-    
+
 
             }
             catch (Exception err)
